@@ -1,0 +1,16 @@
+projects:
+  restaurantapi:
+    schemaPath: src/graphql/schema.json
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: src/graphql
+        graphQLApiId: 3laypq4frngfvoqqy6e6oghyvm
+      endpoints:
+        prod: >-
+          https://ejmfuwvxgjgw5faknjdbt6ulde.appsync-api.eu-west-1.amazonaws.com/graphql
