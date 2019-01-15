@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from './graphql/queries';
+import RestaurantForm from './components/RestaurantForm';
 import './App.css';
 
 class App extends Component {
-  state = { restaurants: []}
-  async componentDidMount() {
+  state = { restaurants: [] }
+  fetchRestaurants = async () => {
     try {
       const apiData = await API.graphql(graphqlOperation(listRestaurants));
       const restaurants = apiData.data.listRestaurants.items;
@@ -13,6 +14,9 @@ class App extends Component {
     } catch(error) {
       console.warn(error);
     }
+  }
+  componentDidMount() {
+    this.fetchRestaurants();
   }
   render() {
     return (
@@ -25,6 +29,7 @@ class App extends Component {
             </div>
           ))
         }
+        <RestaurantForm fetchRestaurants={this.fetchRestaurants}/>
       </div>
     );
   }
