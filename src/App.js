@@ -49,7 +49,7 @@ class App extends Component {
             </div>
           ))
         }
-        <RestaurantForm fetchRestaurants={this.fetchRestaurants}/>
+        <RestaurantForm />
       </div>
     );
   }
