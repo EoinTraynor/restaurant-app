@@ -3,6 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from './graphql/queries';
 import { onCreateRestaurant } from './graphql/subscriptions'
 import RestaurantForm from './components/RestaurantForm';
+import RestaurantList from './components/RestaurantList';
 import './App.css';
 
 class App extends Component {
@@ -41,27 +42,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        { 
-          this.state.restaurants.map((restaurant, i) => (
-            <div key={i} style={styles.item}>
-              <p style={styles.name}>{restaurant.name}</p>
-              <p style={styles.description}>{restaurant.description}</p>
-            </div>
-          ))
-        }
+        <RestaurantList restaurants={this.state.restaurants} />
         <RestaurantForm />
       </div>
     );
   }
-}
-
-const styles = {
-  item: {
-    padding: 10,
-    borderBottom: '2px solid #ddd'
-  },
-  name: { fontSize: 22 },
-  description: { color: 'rgba(0, 0, 0, .45)' }
 }
 
 export default App;

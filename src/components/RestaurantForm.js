@@ -47,7 +47,7 @@ class RestaurantForm extends Component {
 
 const styles = {
   form: {
-    margin: '0 auto', display: 'flex', flexDirection: 'column', width: 300,
+    paddingTop: '20px', margin: '0 auto', display: 'flex', flexDirection: 'column', width: 300,
   },
   input: { 
     fontSize: 18,
