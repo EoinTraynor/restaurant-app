@@ -3,7 +3,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { createRestaurant } from '../graphql/mutations';
 
 class RestaurantForm extends Component {
-  state = { name: '', description: '' }  
+  state = { name: '', description: '' } 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -14,6 +14,7 @@ class RestaurantForm extends Component {
       const restaurant = { name, description }
       await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
       this.setState({ name: '', description: '' });
+      this.props.fetchRestaurants();
     }
     catch (error) {
       console.warn(error);
