@@ -14,7 +14,7 @@ class RestaurantForm extends Component {
       const restaurant = { name, description }
       await API.graphql(graphqlOperation(createRestaurant, { input: restaurant }));
       this.setState({ name: '', description: '' });
-      this.props.fetchRestaurants();
+      // this.props.fetchRestaurants();
     }
     catch (error) {
       console.warn(error);

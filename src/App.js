@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listRestaurants } from './graphql/queries';
+import { onCreateRestaurant } from './graphql/subscriptions'
 import RestaurantForm from './components/RestaurantForm';
 import './App.css';
 
@@ -15,8 +16,27 @@ class App extends Component {
       console.warn(error);
     }
   }
+  subscribeToRestaurant = () => {
+    this.subscription = API.graphql(
+      graphqlOperation(onCreateRestaurant)
+    ).subscribe({
+      next: restaurantData => {
+        const newRestaurant = restaurantData.value.data.onCreateRestaurant;
+        const restaurantAlreadyExists = this.state.restaurants.find(restaurant => restaurant.id === newRestaurant.id);
+        if (restaurantAlreadyExists) return;
+        this.setState({ restaurants: [
+          ...this.state.restaurants,
+          newRestaurant,
+        ]});
+      }
+    });
+  };
   componentDidMount() {
     this.fetchRestaurants();
+    this.subscribeToRestaurant();
+  }
+  componentWillUnmount() {
+    this.subscription.unsubscribe()
   }
   render() {
     return (
